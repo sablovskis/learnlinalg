@@ -8,23 +8,27 @@ class Matrix():
     def __init__(self, value):
         self.value = value
         self.pos = 0
-        # self.a00 = None
+    
     
     # What the computer sees
     def __repr__(self):
         return str(self.value)
 
+
     # What the user sees
     def __str__(self):
         return draw_matrix(self)
+
 
     # Make it posible to access the matrix as a list
     def __getitem__(self, position):
         return self.value[position]
 
+
     # Return the number of columns in the matrix
     def __len__(self):
         return len(self.value)
+
 
     # Addition using plus sign:
     def __add__(self, other):
@@ -32,11 +36,13 @@ class Matrix():
             return Matrix('Empty')
         return add(self, other)
 
+
     # Subtraction using minus sign:
     def __sub__(self, other):
         if self.value == 'Empty' or other.value == 'Empty':
             return Matrix('Empty')
         return add(self, other, False)
+
 
     # Multiplication using star sign:
     def __mul__(self, other):
@@ -44,15 +50,18 @@ class Matrix():
             return Matrix('Empty')        
         return multiply(self, other)
 
+
     # Divides matrix by a scalar
     def __truediv__(self, other):
         if self.value == 'Empty' or other.value == 'Empty':
             return Matrix('Empty')        
         return divide(self, other)
 
+
     # Return the dimensions of matrix as (columns, rows)
     def size(self):
         return size(self)
+
 
     # Returns True if matrix is square
     def square(self):
@@ -61,27 +70,33 @@ class Matrix():
         else:
             return False
 
+
     # Returns the size of the diagonal
     def diagonal_length(self):
         return min(size(self))
+
 
     # Get vector length
     def norm2(self):
         return norm2(self)
 
+
     # Transpose matrix
     def t(self):
         return transpose(self)
-    
+
+
     # Return indicated column as a vector
     def column(self, number):
         result = [self[number]]
         return Matrix(result)
 
+
     # Return indicated row as a vector
     def row(self, number):
         result = [[self[i][number] for i in range(self.size()[0])]]
         return Matrix(result)
+
 
     @property # Get a00 slice of matrix
     def a00(self):
@@ -142,16 +157,6 @@ class Matrix():
         self.value = update(self, top_matrix, 'a01', self.pos)
         return self
 
-    # # Get or set a01 slice of matrix
-    # def a01(self, top_matrix=False):
-    #     if top_matrix:
-    #         if self.pos == 0: # Do nothing in positon 0
-    #             return self            
-    #         self.value = update(self, top_matrix, 'a01', self.pos)
-    #         return self
-    #     if self.pos == 0: # No matrix in position 0
-    #         return Matrix('Empty')
-    #     return select(self, [self.pos, 0], [self.pos, self.pos - 1], True)
 
     @property # Get 11 slice of matrix
     def a11(self):
@@ -160,14 +165,6 @@ class Matrix():
     def a11(self, top_matrix=False):
         self.value = update(self, top_matrix, 'a11', self.pos)
         return self
-
-    # # Get or set a11 slice of matrix
-    # def a11(self, top_matrix=False):
-    #     if top_matrix:
-    #         self.value = update(self, top_matrix, 'a11', self.pos)
-    #         return self
-    #     return select(self, [self.pos, self.pos], [self.pos, self.pos], True)  
-
 
 
     @property # Get a21 slice of matrix
@@ -182,17 +179,6 @@ class Matrix():
             return self            
         self.value = update(self, top_matrix, 'a21', self.pos)
         return self        
-
-    # # Get or set a21 slice of matrix
-    # def a21(self, top_matrix=False):
-    #     if top_matrix:
-    #         if self.pos == self.diagonal_length() - 1: # Do nothing in position Max
-    #             return self            
-    #         self.value = update(self, top_matrix, 'a21', self.pos)
-    #         return self
-    #     if self.pos == self.diagonal_length() - 1: # No matrix in position Max
-    #         return Matrix('Empty')            
-    #     return select(self, [self.pos, self.pos + 1], [self.pos, None], True)
 
 
     @property # Get a02 slice of matrix
@@ -212,20 +198,6 @@ class Matrix():
         self.value = update(self, top_matrix, 'a02', self.pos)
         return self        
 
-    # # Get or set a02 slice of matrix
-    # def a02(self, top_matrix=False):
-    #     if top_matrix:
-    #         if self.pos == 0: # Do nothing in positon 0
-    #             return self
-    #         if self.pos == self.diagonal_length() - 1 and self.size()[0] == self.diagonal_length(): # Do nothing in position Max
-    #             return self                
-    #         self.value = update(self, top_matrix, 'a02', self.pos)
-    #         return self
-    #     if self.pos == 0: # No matrix in position 0
-    #         return Matrix('Empty')
-    #     if self.pos == self.diagonal_length() - 1 and self.size()[0] == self.diagonal_length(): # No matrix in position Max
-    #         return Matrix('Empty')            
-    #     return select(self, [self.pos + 1, 0], [None, self.pos - 1], True)
 
     @property # Get a12 slice of matrix
     def a12(self):
@@ -240,16 +212,6 @@ class Matrix():
         self.value = update(self, top_matrix, 'a12', self.pos)
         return self        
 
-    # # Get or set a12 slice of matrix
-    # def a12(self, top_matrix=False):
-    #     if top_matrix:
-    #         if self.pos == self.diagonal_length() - 1 and self.size()[0] == self.diagonal_length(): # Do nothing in position Max
-    #             return self            
-    #         self.value = update(self, top_matrix, 'a12', self.pos)
-    #         return self
-    #     if self.pos == self.diagonal_length() - 1 and self.size()[0] == self.diagonal_length(): # No matrix in position Max
-    #         return Matrix('Empty')
-    #     return select(self, [self.pos + 1, self.pos], [None, self.pos], True)
 
     @property # Get a22 slice of matrix
     def a22(self):
@@ -263,47 +225,6 @@ class Matrix():
             return self            
         self.value = update(self, top_matrix, 'a22', self.pos)
         return self        
-
-    # # Get or set a22 slice of matrix
-    # def a22(self, top_matrix=False):
-    #     if top_matrix:
-    #         if self.pos == self.diagonal_length() - 1: # Do nothing in position Max
-    #             return self            
-    #         self.value = update(self, top_matrix, 'a22', self.pos)
-    #         return self
-    #     if self.pos == self.diagonal_length() - 1: # No matrix in position Max
-    #         return Matrix('Empty')            
-    #     return select(self, [self.pos + 1, self.pos + 1], allow_out=True)       
-
-             
-
-    # # For the case of nine_partitions:
-    # a00 = select(matrix, [0, 0], [pos - 1, pos - 1], True)
-    # a01 = select(matrix, [pos, 0], [pos, pos - 1], True)
-    # a02 = select(matrix, [pos + 1, 0], [None, pos - 1], True)
-    # a10 = select(matrix, [0, pos], [pos - 1, pos], True)
-    # a20 = select(matrix, [0, pos + 1], [0, None], True)
-    # # For all cases:
-    # a11 = select(matrix, [pos, pos], [pos, pos])
-    # a12 = select(matrix, [pos + 1, pos], [None, pos], True)         
-    # a21 = select(matrix, [pos, pos + 1], [pos, None], True)       
-    # a22 = select(matrix, [pos + 1, pos + 1], allow_out=True)
-
-# def update(matrix, top_matrix, partition, pos):
-#     partitions = { # This is the position of top left corner
-#         'a00': [ 0,       0         ],
-#         'a10': [ 0,       pos       ],
-#         'a20': [ 0,       pos + 1   ],
-#         'a01': [ pos,     0         ],
-#         'a11': [ pos,     pos       ],
-#         'a21': [ pos,     pos + 1   ],
-#         'a02': [ pos + 1, 0         ],
-#         'a12': [ pos + 1, pos       ],
-#         'a22': [ pos + 1, pos + 1   ]
-#     }
-#     result = overlay(matrix, top_matrix, partitions[partition])
-#     return result    
-
 
 
 def draw_matrix(matrix):
@@ -331,9 +252,11 @@ def draw_matrix(matrix):
     matrix_as_text += '\n'
     return matrix_as_text
 
+
 def copy_matrix(matrix):
     result = [[i for i in matrix[column]] for column in range(matrix.size()[0])]
     return Matrix(result)
+
 
 # Extracts the upper triangular matrix:
 def extract_upper(matrix):
@@ -346,6 +269,7 @@ def extract_upper(matrix):
             matrix[column][row] = 0
     return matrix
 
+
 # Extracts the lower triangular matrix:
 def extract_lower(matrix):
     width, height = matrix.size()[0], matrix.size()[1]
@@ -356,6 +280,7 @@ def extract_lower(matrix):
                 result[column][row] = matrix[column][row]
     return result
 
+
 def extract_diagonal(matrix, square=True):
     if square and not matrix.square():
         raise Exception(f'The matrix is not square ({matrix.size()}).')
@@ -364,6 +289,7 @@ def extract_diagonal(matrix, square=True):
     for i in range(diag):
         result[i][i] = matrix[i][i]
     return result
+
 
 # Pastes a matrix on top of another matrix
 def overlay(matrix, top_matrix, top_left):
@@ -383,6 +309,7 @@ def overlay(matrix, top_matrix, top_left):
             matrix[column][row] = top_matrix[column - top_left[0]][row - top_left[1]]
     return matrix
 
+
 # Overlays a specified partition in matrix in specified diagonal position
 def update(matrix, top_matrix, partition, pos):
     partitions = { # This is the position of top left corner
@@ -398,6 +325,7 @@ def update(matrix, top_matrix, partition, pos):
     }
     result = overlay(matrix, top_matrix, partitions[partition])
     return result
+
 
 # Connects two matrices into one
 def join(matrix_1, matrix_2, join_vertically=False):
@@ -420,6 +348,7 @@ def join(matrix_1, matrix_2, join_vertically=False):
             joined_matrix.append(column)
         return Matrix(joined_matrix)
 
+
 # Makes all diagonal components 1
 def overlay_unit(matrix):
     diag = matrix.diagonal_length()
@@ -427,6 +356,7 @@ def overlay_unit(matrix):
     for pos in range(diag):
         matrix[pos][pos] = 1
     return matrix
+
 
 # Cuts out a new matrix from the specified top left and bottom right corner
 def select(matrix, top_left, bottom_right=None, allow_out=False):
@@ -467,6 +397,7 @@ def select(matrix, top_left, bottom_right=None, allow_out=False):
         result.append( matrix[column][top_left[1] : bottom_right[1]] )
     return Matrix(result)
 
+
 # Cuts out a new matrix from the specified top left and bottom right corner
 def select_debug(matrix, top_left, bottom_right=None, allow_out=False):
     size = matrix.size()
@@ -506,6 +437,7 @@ def select_debug(matrix, top_left, bottom_right=None, allow_out=False):
         result.append( matrix[column][top_left[1] : bottom_right[1]] )
     return Matrix(result)
 
+
 # Slices the matrix into four or nine partitions
 def slice_matrix(matrix, position, nine_partitions=False):
     pos = position
@@ -525,11 +457,13 @@ def slice_matrix(matrix, position, nine_partitions=False):
     else:
         return a11, a12, a21, a22
 
+
 def slice_vector(vector, position):
     pos = position
     a1 = select(vector, [0, pos], [0, pos])
     a2 = select(vector, [0, pos + 1], [0, None], True)
     return a1, a2
+
 
 # Also known as 2-norm I think
 def norm2(matrix):
@@ -540,6 +474,7 @@ def norm2(matrix):
     length = sqrt( ( matrix.t() * matrix )[0][0] )
     return Matrix([[length]])
 
+
 def size(matrix):
     # Get the number of columns and rows
     x = len(matrix)
@@ -549,6 +484,7 @@ def size(matrix):
         if len(i) != y:
             return False
     return x, y # Not a Matrix object (2x int)
+
 
 def add(matrix_1, matrix_2, sign=True):
     # Check if they have the same number of columns and rows
@@ -573,6 +509,7 @@ def add(matrix_1, matrix_2, sign=True):
             result_column.append(result_component)
         result_matrix.append(result_column)
     return Matrix(result_matrix)
+
 
 def multiply(matrix_1, matrix_2):
     # Check if the sizes are correct for multiplication
@@ -695,18 +632,12 @@ def gauss_jordan(m, b):
     for pos in range(diag):
         m, p = row_pivoting(m, p, pos)
         m.pos = pos  
-        # print(m)
         # Calculate and update values
         m.a01 = m.a01 / m.a11
         m.a21 = m.a21 / m.a11
         m.a02 = m.a02 - m.a01 * m.a12
         m.a22 = m.a22 - m.a21 * m.a12
-        # print("WTF before", pos)
-        # print(select(m, [m.pos, 0], [m.pos, m.pos - 1], True))
-        # print(m.a01)
         m.a01 = zeros(*m.a01.size())
-        # print("WTF after")
-        # print(m.a01)
         m.a21 = zeros(*m.a21.size())
     multiplication_matrix = extract_gauss_jordan_multiplications(m)
     m = multiplication_matrix * m
@@ -845,11 +776,13 @@ def forward_substitution(transformation_matrix, vector):
         vector = overlay(vector, b2, [0, pos + 1])
     return vector
 
+
 def axpy(scalar_a, vector_x, vector_y):
     # TODO Axpy operation is intended for vectors and scalars but
     # TODO now it works with matrices as well. Should I make it not
     # TODO work with matrices?
     return (scalar_a * vector_x) + vector_y
+
 
 def dot_product(vector_1, vector_2):
     # Check if both are vectors and of same size
