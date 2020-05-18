@@ -7,4 +7,4 @@ My plan is to write a Python library based on this course. The idea being, as th
 
 I am doing this solely for my own educational purposes. The goal of writing this library is to understand the mathematical concepts. Because of this reason, this library will neither be of high performance nor very mathematically accurate. It should however solve the textbook examples with no issues.
 
-Currently in Week 9 of the course.
+Currently in Week 10 of the course.
