@@ -90,7 +90,7 @@ class Matrix():
         size = self.size()
         if size[0] != size[1]:
             raise Exception('The matrix has to be square.')
-        return gauss_jordan(self, eye(size[0]))[0]
+        return gauss_jordan(self, eye(size[0]))[1]
 
     # Return indicated column as a vector
     def column(self, number):
