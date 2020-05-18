@@ -85,6 +85,12 @@ class Matrix():
     def t(self):
         return transpose(self)
 
+    # Invert matrix
+    def i(self):
+        size = self.size()
+        if size[0] != size[1]:
+            raise Exception('The matrix has to be square.')
+        return gauss_jordan(self, eye(size[0]))[0]
 
     # Return indicated column as a vector
     def column(self, number):
